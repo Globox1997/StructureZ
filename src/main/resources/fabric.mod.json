@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "structurez",
+  "version": "${version}",
+  "name": "StructureZ",
+  "description": "More to explore!",
+  "authors": [
+    "Globox_Z"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "MIT",
+  "icon": "assets/structurez/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.structurez.struc"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
