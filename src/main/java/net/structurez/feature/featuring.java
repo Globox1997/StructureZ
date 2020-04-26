@@ -122,6 +122,10 @@ public class featuring {
                                 featuring.WATERVILLAGE_STRUCTURE.configure(FeatureConfig.DEFAULT)
                                                 .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
                                                                 .configure(new ChanceDecoratorConfig(6)))));
+                // TEST
+                Registry.BIOME.forEach(biome -> biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.TOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0)))));
 
                 Biomes.PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.DIRTHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(

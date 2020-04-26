@@ -1,6 +1,8 @@
 package net.structurez.feature;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -20,25 +22,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class towergenerator {
-  private static final Identifier SE_TEMPLATE = new Identifier(struc.MOD_ID + ":houses/tower");
-
-  private static final Map<Identifier, BlockPos> PIECES_OFFSET;
-  private static final Map<Identifier, BlockPos> COUNTER_OFFSET;
-  static {
-    Map<Identifier, BlockPos> tempMap = new HashMap<Identifier, BlockPos>();
-    tempMap.put(SE_TEMPLATE, new BlockPos(0, 0, 0));
-
-    PIECES_OFFSET = tempMap;
-
-    tempMap = new HashMap<Identifier, BlockPos>();
-    tempMap.put(SE_TEMPLATE, new BlockPos(0, 0, 0));
-
-    COUNTER_OFFSET = tempMap;
-  }
+  private static final Identifier TOWER = new Identifier(struc.MOD_ID + ":houses/tower");
+  private static final Identifier towerloot = new Identifier("structurez:tower_loot");
 
   public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation,
       List<StructurePiece> pieces, Random random) {
-    pieces.add(new towergenerator.Piece(manager, SE_TEMPLATE, pos, rotation));
+    pieces.add(new towergenerator.Piece(manager, TOWER, pos, rotation));
 
   }
 
@@ -49,9 +38,9 @@ public class towergenerator {
     public Piece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation) {
       super(featuring.TOWER_PIECES, 0);
       this.template = identifier;
-      BlockPos blockPos = (BlockPos) towergenerator.COUNTER_OFFSET.get(identifier);
-      this.pos = pos.add(blockPos.getX(), blockPos.getY(), blockPos.getZ());
       this.rotation = rotation;
+      this.pos = pos;
+
       this.initializeStructureData(manager);
     }
 
@@ -65,8 +54,8 @@ public class towergenerator {
     private void initializeStructureData(StructureManager manager) {
       Structure structure = manager.getStructureOrBlank(this.template);
       StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
-          .setMirrored(BlockMirror.NONE).setPosition((BlockPos) towergenerator.PIECES_OFFSET.get(this.template))
-          .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+          .setMirrored(BlockMirror.NONE).setPosition(pos);
+      // .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 
       this.setStructureData(structure, this.pos, structurePlacementData);
     }
@@ -80,60 +69,48 @@ public class towergenerator {
 
     @Override
     protected void handleMetadata(String metadata, BlockPos pos, IWorld world, Random random, BlockBox boundingBox) {
+
+      if (metadata.contains("normal_chest")) {
+        world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        BlockEntity blockEntity = world.getBlockEntity(pos.down());
+
+        if (blockEntity instanceof ChestBlockEntity) {
+          ((ChestBlockEntity) blockEntity).setLootTable(towerloot, random.nextLong());
+        }
+      }
     }
 
     @Override
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
+      // this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
-      if ((world.getBlockState(dirt).isAir() || world.getBlockState(dirt).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.south(4)).isAir()
-              || world.getBlockState(dirt.south(4)).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.east(4)).isAir()
-              || world.getBlockState(dirt.east(4)).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.south(4).east(4)).isAir()
-              || world.getBlockState(dirt.south(4).east(4)).getBlock().equals(Blocks.GRAVEL))
-          &&
 
-          (world.getBlockState(dirt.south(8)).isAir()
-              || world.getBlockState(dirt.south(8)).getBlock().equals(Blocks.GRAVEL))
-          && (world.getBlockState(dirt.east(8)).isAir()
-              || world.getBlockState(dirt.east(8)).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.south(8).east(8)).isAir()
-              || world.getBlockState(dirt.south(8).east(8)).getBlock().equals(Blocks.SNOW))
-          &&
+      /*
+       * if ((world.getBlockState(dirt.up()).isAir() ||
+       * world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)) &&
+       * (world.getBlockState(dirt.south(4).up()).isAir() ||
+       * world.getBlockState(dirt.south(4).up()).getBlock().equals(Blocks.GRASS) ||
+       * world.getBlockState(dirt.south(4).up()).getBlock().equals(Blocks.SNOW)) &&
+       * (world.getBlockState(dirt.east(4).up()).isAir() ||
+       * world.getBlockState(dirt.east(4).up()).getBlock().equals(Blocks.GRASS) ||
+       * world.getBlockState(dirt.east(4).up()).getBlock().equals(Blocks.SNOW)) &&
+       * 
+       * world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK) &&
+       * world.getBlockState(dirt.south(5)).getBlock().equals(Blocks.GRASS_BLOCK) &&
+       * world.getBlockState(dirt.east(5)).getBlock().equals(Blocks.GRASS_BLOCK) &&
+       * (world.getBlockState(dirt.south(4).east(4).up()).isAir() ||
+       * world.getBlockState(dirt.south(4).east(4).up()).getBlock().equals(Blocks.
+       * GRASS) ||
+       * world.getBlockState(dirt.south(4).east(4).up()).getBlock().equals(Blocks.SNOW
+       * ))) {
+       */
 
-          world.getBlockState(dirt.down()).getBlock().equals(Blocks.STONE)
-          && (world.getBlockState(dirt.south(5).down()).getBlock().equals(Blocks.STONE)
-              || world.getBlockState(dirt.south(5).down()).getBlock().equals(Blocks.GRAVEL))
-          && (world.getBlockState(dirt.east(5).down()).getBlock().equals(Blocks.STONE)
-              || world.getBlockState(dirt.east(5).down()).getBlock().equals(Blocks.GRAVEL))
-          /*
-           * &&
-           * (world.getBlockState(dirt.south(10).down()).getBlock().equals(Blocks.STONE)
-           * ||
-           * world.getBlockState(dirt.south(10).down()).getBlock().equals(Blocks.GRAVEL))
-           * && (world.getBlockState(dirt.east(10).down()).getBlock().equals(Blocks.STONE)
-           * ||
-           * world.getBlockState(dirt.east(10).down()).getBlock().equals(Blocks.GRAVEL))
-           */
-
-          && world.getBlockState(dirt.up(10)).isAir() && world.getBlockState(dirt.south(8).up(10)).isAir()
-          && world.getBlockState(dirt.east(8).up(10)).isAir()
-          && world.getBlockState(dirt.south(8).east(8).up(10)).isAir()) {
-
-        StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
-            .setMirrored(BlockMirror.NONE).setPosition((BlockPos) towergenerator.PIECES_OFFSET.get(this.template))
-            .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
-        BlockPos blockPos = (BlockPos) towergenerator.COUNTER_OFFSET.get(this.template);
-
-        this.pos
-            .add(Structure.method_15171(structurePlacementData, new BlockPos(-blockPos.getX(), 0, -blockPos.getZ())));
-
-        boolean created = super.generate(world, generator, random, box, pos);
-
-        return created;
-      }
-      return false;
+      // this.pos = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
+      if (world.getBlockState(dirt.up()).isAir() && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)) {
+        boolean success = super.generate(world, generator, random, box, pos);
+        return success;
+      } else
+        return false;
     }
 
   }

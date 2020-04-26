@@ -11,6 +11,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.AbstractTempleFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.structurez.struc;
@@ -18,15 +19,14 @@ import net.structurez.struc;
 import java.util.Random;
 import java.util.function.Function;
 
-public class tower extends StructureFeature<DefaultFeatureConfig> {
+public class tower extends AbstractTempleFeature<DefaultFeatureConfig> {
   public tower(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
     super(configFactory);
   }
 
   public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> chunkGenerator, Random random, int chunkX,
       int chunkZ, Biome biome) {
-    ChunkPos chunkPos = this.getStart(chunkGenerator, random, chunkX, chunkZ, 0, 0);
-    return chunkX == chunkPos.x && chunkZ == chunkPos.z ? chunkGenerator.hasStructure(biome, this) : false;
+    return true;
   }
 
   public StructureStartFactory getStructureStartFactory() {
@@ -49,11 +49,31 @@ public class tower extends StructureFeature<DefaultFeatureConfig> {
 
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z,
         Biome biome) {
-      BlockPos blockPos = new BlockPos(x * 16,
+      // BlockPos blockPos = new BlockPos(x * 16,
+      // chunkGenerator.getHeightOnGround(x * 16 + 15, z * 16 + 15,
+      // Heightmap.Type.WORLD_SURFACE), z * 16);
+      // BlockRotation blockRotation = BlockRotation.NONE;
+      // towergenerator.addPieces(structureManager, blockPos, blockRotation,
+      // this.children, this.random);
+      // this.setBoundingBoxFromChildren();
+
+      // DefaultFeatureConfig defaultFeatureConfig =
+      // chunkGenerator.getStructureConfig(biome, Structures.test);
+
+      BlockPos startingPos = new BlockPos(x * 16,
           chunkGenerator.getHeightOnGround(x * 16 + 15, z * 16 + 15, Heightmap.Type.WORLD_SURFACE), z * 16);
-      BlockRotation blockRotation = BlockRotation.NONE;
-      towergenerator.addPieces(structureManager, blockPos, blockRotation, this.children, this.random);
+
+      // randomized rotation breaks a LOT of stuff so we're removing it for now
+      BlockRotation rotation = BlockRotation.NONE;
+
+      towergenerator.addPieces(structureManager, startingPos, rotation, this.children, this.random);
       this.setBoundingBoxFromChildren();
     }
+  }
+
+  @Override
+  protected int getSeedModifier() {
+    // TODO Auto-generated method stub
+    return 14357618;
   }
 }
