@@ -1,4 +1,4 @@
-package net.structurez.feature;
+package net.structurez;
 
 import net.minecraft.structure.PlainsVillageData;
 import net.minecraft.structure.StructurePieceType;
@@ -8,7 +8,8 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.feature.*;
-import net.structurez.struc;
+import net.structurez.feature.*;
+import net.structurez.generator.*;
 
 public class featuring {
 
@@ -51,7 +52,7 @@ public class featuring {
                         "villagerhouse_pieces", villagerhousegenerator.Piece::new);
 
         public static StructureFeature<DefaultFeatureConfig> WALL_STRUCTURE = Registry
-                        .register(Registry.STRUCTURE_FEATURE, "wall", new tower(DefaultFeatureConfig::deserialize));
+                        .register(Registry.STRUCTURE_FEATURE, "wall", new wall(DefaultFeatureConfig::deserialize));
         public static StructurePieceType WALL_PIECES = Registry.register(Registry.STRUCTURE_PIECE, "wall_pieces",
                         wallgenerator.Piece::new);
 
@@ -100,16 +101,7 @@ public class featuring {
                 Registry.BIOME.forEach(biome -> biome
                                 .addStructureFeature(featuring.BATTLETOWER_STRUCTURE.configure(FeatureConfig.DEFAULT)));
 
-                // Registry.BIOME.forEach(biome ->
-                // biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
-                // featuring.STONESTATUE_STRUCTURE.configure(FeatureConfig.DEFAULT)
-                // .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))));
-
-                // Registry.BIOME.forEach(biome ->
-                // biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
-                // featuring.STONESTATUE_STRUCTURE.configure(FeatureConfig.DEFAULT)
-                // .createDecoratedFeature(Decorator.COUNT_RANGE.configure(new
-                // RangeDecoratorConfig(600, 10, 0, 128)))));
+                // ADDING TO SPECIFIC BIOMES
 
                 Biomes.FOREST.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.STONESTATUE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
@@ -122,14 +114,10 @@ public class featuring {
                                 featuring.WATERVILLAGE_STRUCTURE.configure(FeatureConfig.DEFAULT)
                                                 .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
                                                                 .configure(new ChanceDecoratorConfig(6)))));
-                // TEST
-                Registry.BIOME.forEach(biome -> biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
-                                featuring.TOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0)))));
 
-                Biomes.PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
-                                featuring.DIRTHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
+                // Biomes.PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                // featuring.DIRTHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                // Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
 
                 Biomes.SNOWY_TUNDRA.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.TREEHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
@@ -157,10 +145,12 @@ public class featuring {
                                 featuring.WALL_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
                                                 Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
 
-                Registry.BIOME.forEach(biome -> biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
-                                featuring.BATTLETOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(8)))));
+                // TEST TEST TEST
 
+                // Registry.BIOME.forEach(biome ->
+                // biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                // featuring.WALL_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                // Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0)))));
         }
 
 }

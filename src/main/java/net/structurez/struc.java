@@ -1,7 +1,6 @@
 package net.structurez;
 
 import net.fabricmc.api.ModInitializer;
-import net.structurez.feature.featuring;
 
 public class struc implements ModInitializer {
 

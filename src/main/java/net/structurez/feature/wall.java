@@ -14,6 +14,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.structurez.struc;
+import net.structurez.generator.wallgenerator;
 
 import java.util.Random;
 import java.util.function.Function;

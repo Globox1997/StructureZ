@@ -1,6 +1,8 @@
-package net.structurez.feature;
+package net.structurez.generator;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -12,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.structurez.featuring;
 import net.structurez.struc;
 
 import java.util.HashMap;
@@ -20,25 +23,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class villagerstatuewatergenerator {
-  private static final Identifier SE_TEMPLATE = new Identifier(struc.MOD_ID + ":statues/watervillagerstatue");
-
-  private static final Map<Identifier, BlockPos> PIECES_OFFSET;
-  private static final Map<Identifier, BlockPos> COUNTER_OFFSET;
-  static {
-    Map<Identifier, BlockPos> tempMap = new HashMap<Identifier, BlockPos>();
-    tempMap.put(SE_TEMPLATE, new BlockPos(8, 0, 8));
-
-    PIECES_OFFSET = tempMap;
-
-    tempMap = new HashMap<Identifier, BlockPos>();
-    tempMap.put(SE_TEMPLATE, new BlockPos(8, 0, 8));
-
-    COUNTER_OFFSET = tempMap;
-  }
+  private static final Identifier TOWER = new Identifier(struc.MOD_ID + ":statues/watervillagerstatue");
+  private static final Identifier towerloot = new Identifier("structurez:waterstatue_loot");
 
   public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation,
       List<StructurePiece> pieces, Random random) {
-    pieces.add(new villagerstatuewatergenerator.Piece(manager, SE_TEMPLATE, pos, rotation));
+    pieces.add(new villagerstatuewatergenerator.Piece(manager, TOWER, pos, rotation));
 
   }
 
@@ -49,9 +39,9 @@ public class villagerstatuewatergenerator {
     public Piece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation) {
       super(featuring.WATERVILLAGE_PIECES, 0);
       this.template = identifier;
-      BlockPos blockPos = (BlockPos) villagerstatuewatergenerator.COUNTER_OFFSET.get(identifier);
-      this.pos = pos.add(blockPos.getX(), blockPos.getY(), blockPos.getZ());
       this.rotation = rotation;
+      this.pos = pos;
+
       this.initializeStructureData(manager);
     }
 
@@ -65,9 +55,8 @@ public class villagerstatuewatergenerator {
     private void initializeStructureData(StructureManager manager) {
       Structure structure = manager.getStructureOrBlank(this.template);
       StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
-          .setMirrored(BlockMirror.NONE)
-          .setPosition((BlockPos) villagerstatuewatergenerator.PIECES_OFFSET.get(this.template))
-          .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+          .setMirrored(BlockMirror.NONE).setPosition(pos);
+      // .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 
       this.setStructureData(structure, this.pos, structurePlacementData);
     }
@@ -82,10 +71,19 @@ public class villagerstatuewatergenerator {
     @Override
     protected void handleMetadata(String metadata, BlockPos pos, IWorld world, Random random, BlockBox boundingBox) {
 
+      if (metadata.contains("waterstatue_loot")) {
+        world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        BlockEntity blockEntity = world.getBlockEntity(pos.down());
+
+        if (blockEntity instanceof ChestBlockEntity) {
+          ((ChestBlockEntity) blockEntity).setLootTable(towerloot, random.nextLong());
+        }
+      }
     }
 
     @Override
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
+      this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos waterblock = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
       if (world.getBlockState(waterblock).getBlock().equals(Blocks.WATER)
 
@@ -104,22 +102,10 @@ public class villagerstatuewatergenerator {
           && world.getBlockState(waterblock.down().west(4)).getBlock().equals(Blocks.SAND)
           && world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.WATER)
           && world.getBlockState(waterblock.up(12)).getBlock().equals(Blocks.WATER)) {
-
-        StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
-            .setMirrored(BlockMirror.NONE)
-            .setPosition((BlockPos) villagerstatuewatergenerator.PIECES_OFFSET.get(this.template))
-            .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
-        BlockPos blockPos = (BlockPos) villagerstatuewatergenerator.COUNTER_OFFSET.get(this.template);
-
-        this.pos
-            .add(Structure.method_15171(structurePlacementData, new BlockPos(-blockPos.getX(), 0, -blockPos.getZ())));
-
-        boolean created = super.generate(world, generator, random, box, pos);
-
-        return created;
-      }
-      return false;
+        boolean success = super.generate(world, generator, random, box, pos);
+        return success;
+      } else
+        return false;
     }
-
   }
 }

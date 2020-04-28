@@ -1,4 +1,4 @@
-package net.structurez.feature;
+package net.structurez.generator;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.structurez.featuring;
 import net.structurez.struc;
 
 import java.util.HashMap;
@@ -21,13 +22,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class towergenerator {
-  private static final Identifier TOWER = new Identifier(struc.MOD_ID + ":houses/tower");
-  private static final Identifier towerloot = new Identifier("structurez:tower_loot");
+public class battletowergenerator {
+  private static final Identifier TOWER = new Identifier(struc.MOD_ID + ":stuff/battletower");
+  private static final Identifier towerloot = new Identifier("structurez:battletower_loot");
 
   public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation,
       List<StructurePiece> pieces, Random random) {
-    pieces.add(new towergenerator.Piece(manager, TOWER, pos, rotation));
+    pieces.add(new battletowergenerator.Piece(manager, TOWER, pos, rotation));
 
   }
 
@@ -36,7 +37,7 @@ public class towergenerator {
     private final BlockRotation rotation;
 
     public Piece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation) {
-      super(featuring.TOWER_PIECES, 0);
+      super(featuring.BATTLETOWER_PIECES, 0);
       this.template = identifier;
       this.rotation = rotation;
       this.pos = pos;
@@ -45,7 +46,7 @@ public class towergenerator {
     }
 
     public Piece(StructureManager manager, CompoundTag tag) {
-      super(featuring.TOWER_PIECES, tag);
+      super(featuring.BATTLETOWER_PIECES, tag);
       this.template = new Identifier(tag.getString("Template"));
       this.rotation = BlockRotation.valueOf(tag.getString("Rot"));
       this.initializeStructureData(manager);
@@ -70,7 +71,7 @@ public class towergenerator {
     @Override
     protected void handleMetadata(String metadata, BlockPos pos, IWorld world, Random random, BlockBox boundingBox) {
 
-      if (metadata.contains("normal_chest")) {
+      if (metadata.contains("battletower_loot")) {
         world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         BlockEntity blockEntity = world.getBlockEntity(pos.down());
 
@@ -83,35 +84,36 @@ public class towergenerator {
     @Override
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
       // this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
-      BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
+      BlockPos waterblock = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
+      if ((world.getBlockState(waterblock.up()).getBlock().equals(Blocks.WATER)
+          || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.SEAGRASS)
+          || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.GRAVEL)
+          || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.KELP_PLANT))
+          && (world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.WATER)
+              || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.SEAGRASS)
+              || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.KELP_PLANT))
+          && (world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.WATER)
+              || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.SEAGRASS)
+              || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.KELP_PLANT))
+          && (world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.WATER)
+              || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.SEAGRASS)
+              || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.KELP_PLANT))
 
-      /*
-       * if ((world.getBlockState(dirt.up()).isAir() ||
-       * world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)) &&
-       * (world.getBlockState(dirt.south(4).up()).isAir() ||
-       * world.getBlockState(dirt.south(4).up()).getBlock().equals(Blocks.GRASS) ||
-       * world.getBlockState(dirt.south(4).up()).getBlock().equals(Blocks.SNOW)) &&
-       * (world.getBlockState(dirt.east(4).up()).isAir() ||
-       * world.getBlockState(dirt.east(4).up()).getBlock().equals(Blocks.GRASS) ||
-       * world.getBlockState(dirt.east(4).up()).getBlock().equals(Blocks.SNOW)) &&
-       * 
-       * world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK) &&
-       * world.getBlockState(dirt.south(5)).getBlock().equals(Blocks.GRASS_BLOCK) &&
-       * world.getBlockState(dirt.east(5)).getBlock().equals(Blocks.GRASS_BLOCK) &&
-       * (world.getBlockState(dirt.south(4).east(4).up()).isAir() ||
-       * world.getBlockState(dirt.south(4).east(4).up()).getBlock().equals(Blocks.
-       * GRASS) ||
-       * world.getBlockState(dirt.south(4).east(4).up()).getBlock().equals(Blocks.SNOW
-       * ))) {
-       */
+          && (world.getBlockState(waterblock.down()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.down()).getBlock().equals(Blocks.STONE))
+          && (world.getBlockState(waterblock.down().south(11)).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.down().south(11)).getBlock().equals(Blocks.STONE))
+          && world.getBlockState(waterblock.down().east(11)).getBlock().equals(Blocks.GRAVEL)
+          && world.getBlockState(waterblock.down().south(11).east(11)).getBlock().equals(Blocks.GRAVEL)
 
-      // this.pos = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
-      if (world.getBlockState(dirt.up()).isAir() && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)) {
+          && world.getBlockState(waterblock.up(30)).getBlock().equals(Blocks.WATER)) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else
         return false;
     }
-
   }
 }

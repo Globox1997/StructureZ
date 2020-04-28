@@ -2,11 +2,11 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 3,
+      "rolls": 4,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:emerald"
+          "name": "minecraft:prismarine_shard"
         }
       ]
     },
@@ -24,13 +24,13 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2.0,
-                "max": 7.0,
+                "min": 0.0,
+                "max": 1.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "minecraft:gold_ingot"
+          "name": "minecraft:nautilus_shell"
         },
         {
           "type": "minecraft:item",
@@ -39,21 +39,39 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1.0,
-                "max": 4.0,
+                "min": 2.0,
+                "max": 7.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "minecraft:bread"
+          "name": "minecraft:gold_nugget"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:map"
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 0.0,
+                "max": 1.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:water_bucket"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:apple"
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 20
+            }
+          ],
+          "name": "minecraft:book"
         }
       ]
     }
