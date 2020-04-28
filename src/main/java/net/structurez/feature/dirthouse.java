@@ -24,20 +24,24 @@ public class dirthouse extends StructureFeature<DefaultFeatureConfig> {
     super(configFactory);
   }
 
+  @Override
   public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> chunkGenerator, Random random, int chunkX,
       int chunkZ, Biome biome) {
     ChunkPos chunkPos = this.getStart(chunkGenerator, random, chunkX, chunkZ, 0, 0);
     return chunkX == chunkPos.x && chunkZ == chunkPos.z ? chunkGenerator.hasStructure(biome, this) : false;
   }
 
+  @Override
   public StructureStartFactory getStructureStartFactory() {
     return dirthouse.Start::new;
   }
 
+  @Override
   public String getName() {
     return struc.MOD_ID + ":dirt";
   }
 
+  @Override
   public int getRadius() {
     return 8;
   }
@@ -48,6 +52,7 @@ public class dirthouse extends StructureFeature<DefaultFeatureConfig> {
       super(structureFeature, chunkX, chunkZ, blockBox, references, seed);
     }
 
+    @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z,
         Biome biome) {
       BlockPos blockPos = new BlockPos(x * 16,

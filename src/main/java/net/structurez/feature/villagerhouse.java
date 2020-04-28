@@ -39,14 +39,17 @@ public class villagerhouse extends AbstractTempleFeature<DefaultFeatureConfig> {
     }
   }
 
+  @Override
   public StructureStartFactory getStructureStartFactory() {
     return villagerhouse.Start::new;
   }
 
+  @Override
   public String getName() {
     return struc.MOD_ID + ":villagerhouse";
   }
 
+  @Override
   public int getRadius() {
     return 6;
   }
@@ -57,6 +60,7 @@ public class villagerhouse extends AbstractTempleFeature<DefaultFeatureConfig> {
       super(structureFeature, chunkX, chunkZ, blockBox, references, seed);
     }
 
+    @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z,
         Biome biome) {
       BlockPos startingPos = new BlockPos(x * 16,
