@@ -52,6 +52,7 @@ public class villagerstatue extends StructureFeature<DefaultFeatureConfig> {
         Biome biome) {
       BlockPos blockPos = new BlockPos(x * 16,
           chunkGenerator.getHeightOnGround(x * 16 + 15, z * 16 + 15, Heightmap.Type.WORLD_SURFACE), z * 16);
+      // BlockRotation blockRotation = BlockRotation.NONE;
       BlockRotation blockRotation = BlockRotation.values()[this.random.nextInt(BlockRotation.values().length)];
       villagerstatuegenerator.addPieces(structureManager, blockPos, blockRotation, this.children, this.random);
       this.setBoundingBoxFromChildren();

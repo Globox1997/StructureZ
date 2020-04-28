@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.StructureFeature;
 import net.structurez.featuring;
 import net.structurez.struc;
 
@@ -22,13 +23,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class treehousegenerator {
-  private static final Identifier TOWER = new Identifier(struc.MOD_ID + ":houses/treehouse");
-  private static final Identifier towerloot = new Identifier("structurez:treehouse_loot");
+public class islandgenerator {
+  private static final Identifier TOWER = new Identifier(struc.MOD_ID + ":stuff/island");
+  private static final Identifier towerloot = new Identifier("structurez:island_loot");
 
   public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation,
       List<StructurePiece> pieces, Random random) {
-    pieces.add(new treehousegenerator.Piece(manager, TOWER, pos, rotation));
+    pieces.add(new islandgenerator.Piece(manager, TOWER, pos, rotation));
 
   }
 
@@ -37,7 +38,7 @@ public class treehousegenerator {
     private final BlockRotation rotation;
 
     public Piece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation) {
-      super(featuring.TREEHOUSE_PIECES, 0);
+      super(featuring.ISLAND_PIECES, 0);
       this.template = identifier;
       this.rotation = rotation;
       this.pos = pos;
@@ -46,7 +47,7 @@ public class treehousegenerator {
     }
 
     public Piece(StructureManager manager, CompoundTag tag) {
-      super(featuring.TREEHOUSE_PIECES, tag);
+      super(featuring.ISLAND_PIECES, tag);
       this.template = new Identifier(tag.getString("Template"));
       this.rotation = BlockRotation.valueOf(tag.getString("Rot"));
       this.initializeStructureData(manager);
@@ -56,6 +57,7 @@ public class treehousegenerator {
       Structure structure = manager.getStructureOrBlank(this.template);
       StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
           .setMirrored(BlockMirror.NONE).setPosition(pos);
+      // .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 
       this.setStructureData(structure, this.pos, structurePlacementData);
     }
@@ -70,7 +72,7 @@ public class treehousegenerator {
     @Override
     protected void handleMetadata(String metadata, BlockPos pos, IWorld world, Random random, BlockBox boundingBox) {
 
-      if (metadata.contains("treehouse_loot")) {
+      if (metadata.contains("island_loot")) {
         world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         BlockEntity blockEntity = world.getBlockEntity(pos.down());
 
@@ -85,20 +87,8 @@ public class treehousegenerator {
       this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
 
-      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.up().east(14)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.up().south(14)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.up().east(14).south(14)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-
-          && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.east(14)).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.south(14)).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.east(14).south(14)).getBlock().equals(Blocks.GRASS_BLOCK)
-
-          && world.getBlockState(dirt.up(12)).isAir() && world.getBlockState(dirt.up(12).east(14).south(14)).isAir()) {
+      if ((world.getBlockState(dirt.down(50)).isAir()
+          && world.getBlockState(dirt.down(50).east(10).west(10)).isAir())) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else

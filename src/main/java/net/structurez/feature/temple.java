@@ -14,13 +14,13 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.structurez.struc;
-import net.structurez.generator.dirthousegenerator;
+import net.structurez.generator.templegenerator;
 
 import java.util.Random;
 import java.util.function.Function;
 
-public class dirthouse extends StructureFeature<DefaultFeatureConfig> {
-  public dirthouse(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
+public class temple extends StructureFeature<DefaultFeatureConfig> {
+  public temple(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
     super(configFactory);
   }
 
@@ -31,11 +31,11 @@ public class dirthouse extends StructureFeature<DefaultFeatureConfig> {
   }
 
   public StructureStartFactory getStructureStartFactory() {
-    return dirthouse.Start::new;
+    return temple.Start::new;
   }
 
   public String getName() {
-    return struc.MOD_ID + ":dirt";
+    return struc.MOD_ID + ":temple";
   }
 
   public int getRadius() {
@@ -53,7 +53,7 @@ public class dirthouse extends StructureFeature<DefaultFeatureConfig> {
       BlockPos blockPos = new BlockPos(x * 16,
           chunkGenerator.getHeightOnGround(x * 16 + 15, z * 16 + 15, Heightmap.Type.WORLD_SURFACE), z * 16);
       BlockRotation blockRotation = BlockRotation.NONE;
-      dirthousegenerator.addPieces(structureManager, blockPos, blockRotation, this.children, this.random);
+      templegenerator.addPieces(structureManager, blockPos, blockRotation, this.children, this.random);
       this.setBoundingBoxFromChildren();
     }
   }

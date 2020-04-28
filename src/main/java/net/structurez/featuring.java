@@ -61,6 +61,16 @@ public class featuring {
         public static StructurePieceType BATTLETOWER_PIECES = Registry.register(Registry.STRUCTURE_PIECE,
                         "battletower_pieces", battletowergenerator.Piece::new);
 
+        public static StructureFeature<DefaultFeatureConfig> TEMPLE_STRUCTURE = Registry
+                        .register(Registry.STRUCTURE_FEATURE, "temple", new temple(DefaultFeatureConfig::deserialize));
+        public static StructurePieceType TEMPLE_PIECES = Registry.register(Registry.STRUCTURE_PIECE, "temple_pieces",
+                        templegenerator.Piece::new);
+
+        public static StructureFeature<DefaultFeatureConfig> ISLAND_STRUCTURE = Registry
+                        .register(Registry.STRUCTURE_FEATURE, "island", new island(DefaultFeatureConfig::deserialize));
+        public static StructurePieceType ISLAND_PIECES = Registry.register(Registry.STRUCTURE_PIECE, "island_pieces",
+                        islandgenerator.Piece::new);
+
         public static void setupFeatures() {
                 Feature.STRUCTURES.put(struc.MOD_ID + ":stonestatue", STONESTATUE_STRUCTURE);
                 Feature.STRUCTURES.put(struc.MOD_ID + ":watervillagerstatue", WATERVILLAGE_STRUCTURE);
@@ -71,6 +81,8 @@ public class featuring {
                 Feature.STRUCTURES.put(struc.MOD_ID + ":villagerhouse", VILLAGERHOUSE_STRUCTURE);
                 Feature.STRUCTURES.put(struc.MOD_ID + ":wall", WALL_STRUCTURE);
                 Feature.STRUCTURES.put(struc.MOD_ID + ":battletower", BATTLETOWER_STRUCTURE);
+                Feature.STRUCTURES.put(struc.MOD_ID + ":island", ISLAND_STRUCTURE);
+                Feature.STRUCTURES.put(struc.MOD_ID + ":temple", TEMPLE_STRUCTURE);
 
                 PlainsVillageData.initialize();
         }
@@ -100,6 +112,10 @@ public class featuring {
 
                 Registry.BIOME.forEach(biome -> biome
                                 .addStructureFeature(featuring.BATTLETOWER_STRUCTURE.configure(FeatureConfig.DEFAULT)));
+                Registry.BIOME.forEach(biome -> biome
+                                .addStructureFeature(featuring.ISLAND_STRUCTURE.configure(FeatureConfig.DEFAULT)));
+                Registry.BIOME.forEach(biome -> biome
+                                .addStructureFeature(featuring.TEMPLE_STRUCTURE.configure(FeatureConfig.DEFAULT)));
 
                 // ADDING TO SPECIFIC BIOMES
 
@@ -115,6 +131,13 @@ public class featuring {
                                                 .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
                                                                 .configure(new ChanceDecoratorConfig(6)))));
 
+                Biomes.BIRCH_FOREST.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.TEMPLE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(5))));
+
+                Biomes.OCEAN.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.ISLAND_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(5))));
                 // Biomes.PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                 // featuring.DIRTHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
                 // Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));

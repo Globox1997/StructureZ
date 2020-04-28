@@ -5,7 +5,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -17,9 +16,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.structurez.featuring;
 import net.structurez.struc;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class battletowergenerator {
@@ -56,7 +53,6 @@ public class battletowergenerator {
       Structure structure = manager.getStructureOrBlank(this.template);
       StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
           .setMirrored(BlockMirror.NONE).setPosition(pos);
-      // .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 
       this.setStructureData(structure, this.pos, structurePlacementData);
     }
