@@ -119,61 +119,90 @@ public class featuring {
 
                 // ADDING TO SPECIFIC BIOMES
 
+                // Stone Statue
                 Biomes.FOREST.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.STONESTATUE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
                 Biomes.FLOWER_FOREST.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.STONESTATUE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
-
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                // Water Statue
                 Registry.BIOME.forEach(biome -> biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.WATERVILLAGE_STRUCTURE.configure(FeatureConfig.DEFAULT)
                                                 .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
-                                                                .configure(new ChanceDecoratorConfig(6)))));
-
+                                                                .configure(new ChanceDecoratorConfig(0)))));
+                // Temple
                 Biomes.BIRCH_FOREST.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.TEMPLE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(5))));
-
-                Biomes.OCEAN.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                Biomes.BIRCH_FOREST_HILLS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.TEMPLE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                Biomes.TALL_BIRCH_FOREST.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.TEMPLE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                // Island
+                Biomes.SWAMP.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.ISLAND_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(5))));
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                // Grass House
                 // Biomes.PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                 // featuring.DIRTHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
                 // Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
 
+                // Tree House
                 Biomes.SNOWY_TUNDRA.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.TREEHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(5))));
-
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                // Tower
                 Biomes.MOUNTAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.TOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
                 Biomes.GRAVELLY_MOUNTAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.TOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
-
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                Biomes.MOUNTAIN_EDGE.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.TOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                Biomes.MODIFIED_GRAVELLY_MOUNTAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.TOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                // Fallen Tow
                 Biomes.PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.FALLENTOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
-
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                Biomes.SUNFLOWER_PLAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.FALLENTOWER_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                // Vill House
                 Biomes.TAIGA.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, featuring.VILLAGERHOUSE_STRUCTURE
                                 .configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
-
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+                Biomes.TAIGA_HILLS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.VILLAGERHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT)
+                                                .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
+                                                                .configure(new ChanceDecoratorConfig(0))));
+                Biomes.GIANT_TREE_TAIGA.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.VILLAGERHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT)
+                                                .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
+                                                                .configure(new ChanceDecoratorConfig(0))));
+                Biomes.TAIGA_MOUNTAINS.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.VILLAGERHOUSE_STRUCTURE.configure(FeatureConfig.DEFAULT)
+                                                .createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH
+                                                                .configure(new ChanceDecoratorConfig(0))));
+                // Wall
                 Biomes.SAVANNA.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.WALL_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
                 Biomes.SAVANNA_PLATEAU.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
                                 featuring.WALL_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(6))));
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
 
                 // TEST TEST TEST
 
-                // Registry.BIOME.forEach(biome ->
-                // biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
-                // featuring.WALL_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
-                // Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0)))));
+                Registry.BIOME.forEach(biome -> biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+                                featuring.WALL_STRUCTURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(
+                                                Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0)))));
         }
 
 }
