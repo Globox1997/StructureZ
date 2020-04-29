@@ -55,8 +55,7 @@ public class island extends StructureFeature<DefaultFeatureConfig> {
     @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z,
         Biome biome) {
-      BlockPos blockPos = new BlockPos(x * 16,
-          chunkGenerator.getHeightOnGround(x * 16 + 15, z * 16 + 15, Heightmap.Type.WORLD_SURFACE), z * 16);
+      BlockPos blockPos = new BlockPos(x * 16, 160, z * 16);
       BlockRotation blockRotation = BlockRotation.NONE;
       islandgenerator.addPieces(structureManager, blockPos, blockRotation, this.children, this.random);
       this.setBoundingBoxFromChildren();

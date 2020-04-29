@@ -56,6 +56,7 @@ public class treehousegenerator {
       Structure structure = manager.getStructureOrBlank(this.template);
       StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
           .setMirrored(BlockMirror.NONE).setPosition(pos);
+      // .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 
       this.setStructureData(structure, this.pos, structurePlacementData);
     }
@@ -69,36 +70,31 @@ public class treehousegenerator {
 
     @Override
     protected void handleMetadata(String metadata, BlockPos pos, IWorld world, Random random, BlockBox boundingBox) {
-
-      if (metadata.contains("treehouse_loot")) {
-        world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-        BlockEntity blockEntity = world.getBlockEntity(pos.down());
-
-        if (blockEntity instanceof ChestBlockEntity) {
-          ((ChestBlockEntity) blockEntity).setLootTable(towerloot, random.nextLong());
-        }
-      }
     }
 
     @Override
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
-      this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
-      BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
+      BlockPos grass = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
+      if ((world.getBlockState(grass.up()).isAir() || world.getBlockState(grass.up()).getBlock().equals(Blocks.SNOW)
+          || world.getBlockState(grass.up()).getBlock().equals(Blocks.GRASS))
+          && (world.getBlockState(grass.up().east(14)).isAir()
+              || world.getBlockState(grass.up().east(14)).getBlock().equals(Blocks.SNOW)
+              || world.getBlockState(grass.up().east(14)).getBlock().equals(Blocks.GRASS))
+          && (world.getBlockState(grass.up().south(14)).isAir()
+              || world.getBlockState(grass.up().south(14)).getBlock().equals(Blocks.SNOW)
+              || world.getBlockState(grass.up().south(14)).getBlock().equals(Blocks.GRASS))
+          && (world.getBlockState(grass.up().east(14).south(14)).isAir()
+              || world.getBlockState(grass.up().east(14).south(14)).getBlock().equals(Blocks.SNOW)
+              || world.getBlockState(grass.up().east(14).south(14)).getBlock().equals(Blocks.GRASS))
 
-      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.up().east(14)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.up().south(14)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
-          && (world.getBlockState(dirt.up().east(14).south(14)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.SNOW))
+          && world.getBlockState(grass).getBlock().equals(Blocks.GRASS_BLOCK)
+          && world.getBlockState(grass.east(14)).getBlock().equals(Blocks.GRASS_BLOCK)
+          && world.getBlockState(grass.south(14)).getBlock().equals(Blocks.GRASS_BLOCK)
+          && (world.getBlockState(grass.east(14).south(14)).getBlock().equals(Blocks.GRASS_BLOCK)
+              || world.getBlockState(grass.east(14).south(14)).getBlock().equals(Blocks.DIRT))
 
-          && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.east(14)).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.south(14)).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.east(14).south(14)).getBlock().equals(Blocks.GRASS_BLOCK)
-
-          && world.getBlockState(dirt.up(12)).isAir() && world.getBlockState(dirt.up(12).east(14).south(14)).isAir()) {
+          && world.getBlockState(grass.up(12)).isAir()
+          && world.getBlockState(grass.up(12).east(14).south(14)).isAir()) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else

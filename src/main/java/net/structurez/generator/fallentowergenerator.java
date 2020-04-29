@@ -87,17 +87,22 @@ public class fallentowergenerator {
       this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
 
-      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+          || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().east(12)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().south(12)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().east(12).south(12)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS))
 
           && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
           && world.getBlockState(dirt.east(12)).getBlock().equals(Blocks.GRASS_BLOCK)
-          && world.getBlockState(dirt.south(12)).getBlock().equals(Blocks.GRASS_BLOCK)
+          && (world.getBlockState(dirt.south(12)).getBlock().equals(Blocks.GRASS_BLOCK)
+              || world.getBlockState(dirt.south(12)).getBlock().equals(Blocks.DIRT))
           && (world.getBlockState(dirt.east(12).south(12)).getBlock().equals(Blocks.GRASS_BLOCK)
               || world.getBlockState(dirt.east(12).south(12)).getBlock().equals(Blocks.DIRT))
 

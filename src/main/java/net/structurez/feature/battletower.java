@@ -27,8 +27,11 @@ public class battletower extends StructureFeature<DefaultFeatureConfig> {
   @Override
   public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> chunkGenerator, Random random, int chunkX,
       int chunkZ, Biome biome) {
-    ChunkPos chunkPos = this.getStart(chunkGenerator, random, chunkX, chunkZ, 0, 0);
-    return chunkX == chunkPos.x && chunkZ == chunkPos.z ? chunkGenerator.hasStructure(biome, this) : false;
+    // ChunkPos chunkPos = this.getStart(chunkGenerator, random, chunkX, chunkZ, 0,
+    // 0);
+    // return chunkX == chunkPos.x && chunkZ == chunkPos.z ?
+    // chunkGenerator.hasStructure(biome, this) : false;
+    return true;
   }
 
   @Override
@@ -43,7 +46,7 @@ public class battletower extends StructureFeature<DefaultFeatureConfig> {
 
   @Override
   public int getRadius() {
-    return 4;
+    return 8;
   }
 
   public static class Start extends StructureStart {

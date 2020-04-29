@@ -79,23 +79,26 @@ public class battletowergenerator {
 
     @Override
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
-      // this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos waterblock = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
       if ((world.getBlockState(waterblock.up()).getBlock().equals(Blocks.WATER)
           || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.SEAGRASS)
           || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.GRAVEL)
+          || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.KELP)
           || world.getBlockState(waterblock.up()).getBlock().equals(Blocks.KELP_PLANT))
           && (world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.WATER)
               || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.SEAGRASS)
               || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.KELP)
               || world.getBlockState(waterblock.south(11).up()).getBlock().equals(Blocks.KELP_PLANT))
           && (world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.WATER)
               || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.SEAGRASS)
               || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.KELP)
               || world.getBlockState(waterblock.east(11).up()).getBlock().equals(Blocks.KELP_PLANT))
           && (world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.WATER)
               || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.SEAGRASS)
               || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.GRAVEL)
+              || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.KELP)
               || world.getBlockState(waterblock.south(11).east(11).up()).getBlock().equals(Blocks.KELP_PLANT))
 
           && (world.getBlockState(waterblock.down()).getBlock().equals(Blocks.GRAVEL)

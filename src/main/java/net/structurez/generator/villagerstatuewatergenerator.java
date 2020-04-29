@@ -87,10 +87,16 @@ public class villagerstatuewatergenerator {
       BlockPos waterblock = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
       if (world.getBlockState(waterblock).getBlock().equals(Blocks.WATER)
 
-          && world.getBlockState(waterblock.south(3)).getBlock().equals(Blocks.WATER)
-          && world.getBlockState(waterblock.west(3)).getBlock().equals(Blocks.WATER)
-          && world.getBlockState(waterblock.east(3)).getBlock().equals(Blocks.WATER)
-          && world.getBlockState(waterblock.north(3)).getBlock().equals(Blocks.WATER)
+          && (world.getBlockState(waterblock.west(3)).getBlock().equals(Blocks.WATER)
+              || world.getBlockState(waterblock.west(3)).getBlock().equals(Blocks.KELP_PLANT)
+              || world.getBlockState(waterblock.west(3)).getBlock().equals(Blocks.KELP)
+              || world.getBlockState(waterblock.west(3)).getBlock().equals(Blocks.SEAGRASS)
+              || world.getBlockState(waterblock.west(3)).getBlock().equals(Blocks.TALL_SEAGRASS))
+          && (world.getBlockState(waterblock.east(3)).getBlock().equals(Blocks.WATER)
+              || world.getBlockState(waterblock.east(3)).getBlock().equals(Blocks.KELP)
+              || world.getBlockState(waterblock.east(3)).getBlock().equals(Blocks.KELP_PLANT)
+              || world.getBlockState(waterblock.east(3)).getBlock().equals(Blocks.SEAGRASS)
+              || world.getBlockState(waterblock.east(3)).getBlock().equals(Blocks.TALL_SEAGRASS))
 
           && world.getBlockState(waterblock.down()).getBlock().equals(Blocks.SAND)
           && world.getBlockState(waterblock.down().south()).getBlock().equals(Blocks.SAND)
@@ -100,7 +106,11 @@ public class villagerstatuewatergenerator {
           && world.getBlockState(waterblock.down().east(4)).getBlock().equals(Blocks.SAND)
           && world.getBlockState(waterblock.down().north(4)).getBlock().equals(Blocks.SAND)
           && world.getBlockState(waterblock.down().west(4)).getBlock().equals(Blocks.SAND)
-          && world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.WATER)
+          && (world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.WATER)
+              || world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.KELP_PLANT)
+              || world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.KELP)
+              || world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.SEAGRASS)
+              || world.getBlockState(waterblock.up(5)).getBlock().equals(Blocks.TALL_SEAGRASS))
           && world.getBlockState(waterblock.up(12)).getBlock().equals(Blocks.WATER)) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;

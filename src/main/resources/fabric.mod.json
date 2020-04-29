@@ -7,10 +7,7 @@
   "authors": [
     "Globox_Z"
   ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
-  },
+  "contact": {},
   "license": "MIT",
   "icon": "assets/structurez/icon.png",
   "environment": "*",

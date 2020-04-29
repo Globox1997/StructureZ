@@ -78,11 +78,11 @@ public class villagerstatuegenerator {
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
       if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
           && (world.getBlockState(dirt.up().east(3)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().east(3)).getBlock().equals(Blocks.GRASS))
           && (world.getBlockState(dirt.up().south(5)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().south(5)).getBlock().equals(Blocks.GRASS))
           && (world.getBlockState(dirt.up().east(3).south(5)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().east(3).south(5)).getBlock().equals(Blocks.GRASS))
 
           && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
           && world.getBlockState(dirt.east(3)).getBlock().equals(Blocks.GRASS_BLOCK)
@@ -90,7 +90,9 @@ public class villagerstatuegenerator {
           && (world.getBlockState(dirt.east(3).south(5)).getBlock().equals(Blocks.GRASS_BLOCK)
               || world.getBlockState(dirt.east(3).south(5)).getBlock().equals(Blocks.DIRT))
 
-          && world.getBlockState(dirt.up(9)).isAir() && world.getBlockState(dirt.up(9).east(3).south(5)).isAir()) {
+          && (world.getBlockState(dirt.up(9)).isAir()
+              || world.getBlockState(dirt.up(9)).getBlock().equals(Blocks.OAK_LEAVES))
+          && world.getBlockState(dirt.up(9).east(3).south(5)).isAir()) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else

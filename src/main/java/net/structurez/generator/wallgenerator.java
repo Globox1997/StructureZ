@@ -31,7 +31,7 @@ public class wallgenerator {
 
   public static class Piece extends SimpleStructurePiece {
     private final Identifier template;
-    private final BlockRotation rotation;
+    private BlockRotation rotation = BlockRotation.NONE;
 
     public Piece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation) {
       super(featuring.WALL_PIECES, 0);
@@ -73,13 +73,17 @@ public class wallgenerator {
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
       this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
-      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+          || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().east(10)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().east(10)).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up().east(10)).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().south(13)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().south(13)).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up().south(13)).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().east(10).south(13)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().east(10).south(13)).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up().east(10).south(13)).getBlock().equals(Blocks.TALL_GRASS))
 
           && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
           && world.getBlockState(dirt.east(10)).getBlock().equals(Blocks.GRASS_BLOCK)
@@ -87,7 +91,10 @@ public class wallgenerator {
           && (world.getBlockState(dirt.east(10).south(13)).getBlock().equals(Blocks.GRASS_BLOCK)
               || world.getBlockState(dirt.east(10).south(13)).getBlock().equals(Blocks.DIRT))
 
-          && world.getBlockState(dirt.up(10)).isAir() && world.getBlockState(dirt.up(10).east(10).south(13)).isAir()) {
+          && (world.getBlockState(dirt.up(10)).isAir()
+              || world.getBlockState(dirt.up(10)).getBlock().equals(Blocks.OAK_LEAVES))
+          && world.getBlockState(dirt.up(10).east(10).south(13)).isAir()) {
+
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else

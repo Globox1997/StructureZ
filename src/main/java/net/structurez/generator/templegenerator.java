@@ -86,22 +86,27 @@ public class templegenerator {
       this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
 
-      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+          || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS)
+          || world.getBlockState(dirt.up()).getBlock().equals(Blocks.BIRCH_LOG))
           && (world.getBlockState(dirt.up().east(16)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS)
+              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.BIRCH_LOG))
           && (world.getBlockState(dirt.up().south(16)).isAir()
               || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
           && (world.getBlockState(dirt.up().east(16).south(16)).isAir()
               || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
 
-          && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
+          && (world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
+              || world.getBlockState(dirt).getBlock().equals(Blocks.DIRT))
           && world.getBlockState(dirt.east(16)).getBlock().equals(Blocks.GRASS_BLOCK)
           && (world.getBlockState(dirt.south(16)).getBlock().equals(Blocks.GRASS_BLOCK)
               || world.getBlockState(dirt.east(16).south(16)).getBlock().equals(Blocks.DIRT))
           && (world.getBlockState(dirt.east(16).south(16)).getBlock().equals(Blocks.GRASS_BLOCK)
               || world.getBlockState(dirt.east(16).south(16)).getBlock().equals(Blocks.DIRT))
 
-          && world.getBlockState(dirt.up(10)).isAir() && world.getBlockState(dirt.up(10).east(16).south(16)).isAir()) {
+          && world.getBlockState(dirt.up(14)).isAir() && world.getBlockState(dirt.up(14).east(16).south(16)).isAir()) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else

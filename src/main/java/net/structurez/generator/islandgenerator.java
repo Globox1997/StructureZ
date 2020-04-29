@@ -87,7 +87,7 @@ public class islandgenerator {
       this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
 
-      if (world.getBlockState(dirt.down(50)).isAir() && world.getBlockState(dirt.down(50).east(10).west(10)).isAir()
+      if (world.getBlockState(dirt.down(20)).isAir() && world.getBlockState(dirt.down(20).east(10).west(10)).isAir()
           && world.getBlockState(dirt.down(45).east(10).west(10)).isAir()
           && world.getBlockState(dirt.down(40).east(10).west(10)).isAir()
           && world.getBlockState(dirt.down(35).east(10).west(10)).isAir()
@@ -95,8 +95,12 @@ public class islandgenerator {
           && world.getBlockState(dirt.down(25).east(10).west(10)).isAir()
           && world.getBlockState(dirt.down(20).east(10).west(10)).isAir()
           && world.getBlockState(dirt.down(15).east(10).west(10)).isAir()
-          && world.getBlockState(dirt.down(10).east(10).west(10)).isAir()
-          && world.getBlockState(dirt.down(51).east(10).west(10)).getBlock().equals(Blocks.WATER)) {
+      // && world.getBlockState(dirt.up(10).east(10).west(10)).isAir()
+      // &&
+      // (world.getBlockState(dirt.down(21).east(10).west(10)).getBlock().equals(Blocks.WATER)
+      // ||
+      // world.getBlockState(dirt.down(21).east(10).west(10)).getBlock().equals(Blocks.LILY_PAD))
+      ) {
         boolean success = super.generate(world, generator, random, box, pos);
         return success;
       } else

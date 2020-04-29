@@ -71,7 +71,7 @@ public class villagerhousegenerator {
     @Override
     protected void handleMetadata(String metadata, BlockPos pos, IWorld world, Random random, BlockBox boundingBox) {
 
-      if (metadata.contains("normal_chest")) {
+      if (metadata.contains("house_loot")) {
         world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         BlockEntity blockEntity = world.getBlockEntity(pos.down());
 
@@ -85,13 +85,17 @@ public class villagerhousegenerator {
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
       this.placementData.addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
       BlockPos dirt = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ());
-      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+      if ((world.getBlockState(dirt.up()).isAir() || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS)
+          || world.getBlockState(dirt.up()).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().east(9)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().east(9)).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up().east(9)).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().south(11)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().south(11)).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up().south(11)).getBlock().equals(Blocks.TALL_GRASS))
           && (world.getBlockState(dirt.up().east(9).south(11)).isAir()
-              || world.getBlockState(dirt.up()).getBlock().equals(Blocks.GRASS))
+              || world.getBlockState(dirt.up().east(9).south(11)).getBlock().equals(Blocks.GRASS)
+              || world.getBlockState(dirt.up().east(9).south(11)).getBlock().equals(Blocks.TALL_GRASS))
 
           && world.getBlockState(dirt).getBlock().equals(Blocks.GRASS_BLOCK)
           && world.getBlockState(dirt.east(9)).getBlock().equals(Blocks.GRASS_BLOCK)
